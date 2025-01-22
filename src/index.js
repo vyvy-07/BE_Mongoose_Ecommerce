@@ -14,7 +14,10 @@ const port = process.env.PORT || 3001;
 // Cấu hình CORS cho phép frontend truy cập
 app.use(
   cors({
-    origin: 'http://localhost:3000', // Domain của frontend
+    origin: [
+      'http://localhost:3000',
+      'https://be-mongoose-ecommerce.vercel.app/',
+    ], // Domain của frontend
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Cho phép gửi cookie nếu cần
   })
@@ -37,19 +40,22 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-// // Example API endpoints
-// app.post('/api/products/create', (req, res) => {
-//   return res.json({ message: 'Product created successfully' });
-// });
-// app.get('/api/user/sign-in', (req, res) => {
-//   return res.json({ users: [] });
-// });
-// app.get('/api/user', (req, res) => {
-//   return res.json({ users: [] });
-// });
-// app.delete('/api/delete/:id', (req, res) => {
-//   return res.json({ message: 'Delete successfully' });
-// });
+// Example API endpoints
+app.get('/api/products', (req, res) => {
+  return res.json({ data: [] });
+});
+app.post('/api/products/create', (req, res) => {
+  return res.json({ message: 'Product created successfully' });
+});
+app.get('/api/user/sign-in', (req, res) => {
+  return res.json({ users: [] });
+});
+app.get('/api/user', (req, res) => {
+  return res.json({ users: [] });
+});
+app.delete('/api/delete/:id', (req, res) => {
+  return res.json({ message: 'Delete successfully' });
+});
 
 var multer = require('multer');
 
@@ -64,11 +70,11 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
-app.get('/', (req, res) => {
-  Product.find({}).then((data, err) => {
-    if (err) {
-      console.log(err);
-    }
-    res.render('imagepage', { items: data });
-  });
-});
+// app.get('/', (req, res) => {
+//   Product.find({}).then((data, err) => {
+//     if (err) {
+//       console.log(err);
+//     }
+//     res.render('imagepage', { items: data });
+//   });
+// });
