@@ -14,10 +14,7 @@ const port = process.env.PORT || 3001;
 // Cấu hình CORS cho phép frontend truy cập
 app.use(
   cors({
-    origin: [
-      'http://localhost:3000',
-      'https://be-mongoose-ecommerce.vercel.app/',
-    ], // Domain của frontend
+    origin: true, // Domain của frontend
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Cho phép gửi cookie nếu cần
   })
